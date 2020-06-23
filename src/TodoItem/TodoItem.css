@@ -1,0 +1,19 @@
+.TodoItem-enable-disable-checkbox-wrapper {
+  flex: 1;
+}
+
+.TodoItem-value-wrapper {
+  flex: 6;
+  overflow: hidden;
+  overflow-wrap: break-word;
+}
+
+.TodoItem-actions-wrapper {
+  flex: 2;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.TodoItem-action:hover {
+  cursor: pointer;
+}

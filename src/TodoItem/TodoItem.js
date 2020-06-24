@@ -28,7 +28,7 @@ const TodoItem = (props) => {
   const [todoItemValue, setTodoItemValue] = useState(props.value);
   const todoItemId = props.id;
   const classes = useStyles();
-  const [isTodoItemSelected, toggleIsTodoItemSelected] = useToggle(false);
+  const isTodoItemSelected = props.isSelected;
   const [isEditMode, toggleIsEditMode] = useToggle(false);
   const todoDispatcher = useContext(TodoDispatcherContext);
 
@@ -55,7 +55,15 @@ const TodoItem = (props) => {
   };
 
   const handleTodoItemSelected = () => {
-    toggleIsTodoItemSelected();
+    if (!isTodoItemSelected) {
+      props.updateSelectedTodos(todoItemId, true);
+    } else {
+      props.updateSelectedTodos(todoItemId, false);
+    }
+    todoDispatcher({
+      type: "TOGGLE_INDIVIDUAL_TODO_ITEM_SELECTION",
+      id: todoItemId,
+    });
   };
 
   const handleChange = (event) => {

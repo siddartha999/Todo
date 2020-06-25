@@ -58,6 +58,9 @@ const TodoList = () => {
    * Finally, resets the selectedTodosList to an empty array.
    */
   const handleDeleteSelectedTodos = () => {
+    if (!selectedTodosList.length) {
+      return;
+    }
     todoDispatcher({
       type: "REMOVE_MULTIPLE_TODO_ITEMS",
       value: selectedTodosList,
@@ -106,7 +109,7 @@ const TodoList = () => {
 
   return (
     <div className="TodoList">
-      {todoItemList && todoItemList.length ? todosSelectedJSX : null}
+      {todosSelectedJSX}
       <div className="TodoList-wrapper">
         {todoItemList &&
           todoItemList.map((item) => (

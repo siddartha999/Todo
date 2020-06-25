@@ -6,6 +6,7 @@ import { TodoDispatcherContext, TodoItemListContext } from "./Todo.context";
 
 const Todo = () => {
   const [todoList, dispatch] = useTodoReducer();
+
   return (
     <>
       <TodoDispatcherContext.Provider value={dispatch}>

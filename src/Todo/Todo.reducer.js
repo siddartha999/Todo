@@ -9,15 +9,38 @@
  * Deletion of an individual Todo item.
  * Deletion of multiple Todo items.
  * Modification a Todo item.
- * Toggling individual todo item's selection.
- * Toggling all todo items selection.
+ * Toggling individual Todo item's selection.
+ * Toggling all Todo items selection.
+ *
+ * Finally, todosList state is stored in the sessionStorage object.
+ * sessionStorage is preferred to localStorage as the user need not manually clear the data.
  */
 
-import { useReducer } from "react";
+import { useReducer, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 
+const TODOS_STORAGE_KEY = "todosList";
+const INIT_STATE_VALUE = [];
+
 const useTodoReducer = () => {
-  const [state, dispatch] = useReducer(todoReducer, []);
+  const [state, dispatch] = useReducer(todoReducer, INIT_STATE_VALUE, () => {
+    //Initializes the state with the list retrieved from the sessionStorage.
+    //If the initial list is empty, an empty array [] will be returned.
+    let initialState;
+    try {
+      initialState = JSON.parse(
+        window.sessionStorage.getItem(TODOS_STORAGE_KEY) || INIT_STATE_VALUE
+      );
+    } catch (e) {
+      initialState = INIT_STATE_VALUE;
+    }
+    return initialState;
+  });
+
+  //Since useEffect runs after every state update, the latest todosList is stored in the sessionStorage.
+  useEffect(() => {
+    window.sessionStorage.setItem(TODOS_STORAGE_KEY, JSON.stringify(state));
+  }, [state]);
   return [state, dispatch];
 };
 

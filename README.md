@@ -1,10 +1,11 @@
-This is a REACT application for managing your TODOS.
+This is a REACT application for managing your Tasks.
 
-TODOS can be added, deleted, edited.
+Tasks can be added, deleted, edited etc.
 
-Future commits aim to incorporate the following features :
+Steps(sub-tasks) can be added to a task.
+Due date can be set for a task.
 
-Delete multiple TODOS which have been selected using the checkbox.
-Store and retrieve the TODOS from sessionStorage.
-Add a Timer or priority to TODOS.
-Re-Order TODOS.
+Tasks can be grouped under a List.
+Lists can be grouped under a Group.
+
+Lots more features to be incorporated.

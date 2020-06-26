@@ -59,6 +59,7 @@ const TodoList = () => {
    */
   const handleDeleteSelectedTodos = () => {
     if (!selectedTodosList.length) {
+      alert("No TODOS have been selected!");
       return;
     }
     todoDispatcher({

@@ -1,6 +1,5 @@
 import React from "react";
 import "./App.css";
-import Todo from "./Todo/Todo";
 import NavSidebar from "./NavSidebar/NavSidebar";
 import TopAppBar from "./TopAppBar/TopAppBar";
 import { Route, Switch } from "react-router-dom";
@@ -15,7 +14,7 @@ function App() {
         <TopAppBar />
         <Switch>
           <Route exact path="/" render={() => <p>WELCOME</p>} />
-          <Route exact path="/tasks" render={() => <Todo />} />
+          <Route exact path="/tasks" render={() => <p>Tasks</p>} />
         </Switch>
       </div>
     </div>

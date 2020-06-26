@@ -1,0 +1,27 @@
+.Tasks {
+  display: flex;
+  height: 100%;
+  flex-wrap: wrap;
+  align-content: baseline;
+}
+
+.Tasks-title-container {
+  width: 100%;
+  height: 3rem;
+  text-align: left;
+}
+
+.Tasks-add-task-form-container {
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+
+.Tasks-task-list-container {
+  text-align: left;
+  width: 80%;
+  height: calc(100% - 8rem);
+  overflow: auto;
+}

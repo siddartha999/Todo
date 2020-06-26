@@ -8,7 +8,7 @@ import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    position: "unset",
+    height: "4rem",
   },
   title: {
     color: "white",

@@ -5,9 +5,15 @@
 }
 
 .App-sidebar-wrapper {
-  width: 5%;
+  width: 10%;
+  height: calc(100%);
+  position: relative;
+  top: 4rem;
 }
 
 .App-content-wrapper {
-  width: 95%;
+  width: 90%;
+  height: calc(100%);
+  position: relative;
+  top: 4rem;
 }

@@ -9,7 +9,6 @@ import Emitter from "./services/Emitter";
 
 function App() {
   const handleClick = () => {
-    console.log("clicked");
     Emitter.emit("CLOSE_NAV_SIDE_BAR");
   };
 

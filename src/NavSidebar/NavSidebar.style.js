@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     "& .MuiPaper-root.MuiDrawer-paper": {
-      top: "4.5rem",
+      top: "3.5rem",
     },
   },
   hide: {

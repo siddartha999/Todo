@@ -1,12 +1,14 @@
 import { useReducer, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 
+const SESSION_STORAGE_KEY = "tasksList";
+
 const TasksReducer = (initialValue = []) => {
   const [state, dispatch] = useReducer(reducer, initialValue, () => {
-    let initValue = "";
+    let initValue = [];
     try {
       initValue =
-        JSON.parse(sessionStorage.getItem("tasksList")) || initialValue;
+        JSON.parse(sessionStorage.getItem(SESSION_STORAGE_KEY)) || initialValue;
     } catch (e) {
       initValue = initialValue;
     }
@@ -14,7 +16,7 @@ const TasksReducer = (initialValue = []) => {
   });
 
   useEffect(() => {
-    sessionStorage.setItem("tasksList", JSON.stringify(state));
+    sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(state));
   }, [state]);
 
   return [state, dispatch];

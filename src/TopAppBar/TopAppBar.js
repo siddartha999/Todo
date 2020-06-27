@@ -8,7 +8,11 @@ import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    height: "4rem",
+    height: "3rem",
+  },
+  toolBar: {
+    height: "3rem",
+    minHeight: "3rem",
   },
   title: {
     color: "white",
@@ -20,7 +24,7 @@ const TopAppBar = () => {
   const classes = useStyles();
   return (
     <AppBar position="fixed" className={clsx(classes.appBar)}>
-      <Toolbar>
+      <Toolbar className={classes.toolBar}>
         <Typography component={NavLink} to="/" exact className={classes.title}>
           Do Task
         </Typography>

@@ -4,7 +4,7 @@
  * Receives the dispatcher as a prop, and calls that with an object containing appropriate arguments.
  */
 
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, forwardRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import { StarredModeContext } from "../Starred/Starred.context";
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const InputForm = (props) => {
+const InputForm = forwardRef((props, ref) => {
   const classes = useStyles();
   const [inputValue, setInputValue] = useState("");
   const dispatch = props.dispatch;
@@ -54,9 +54,10 @@ const InputForm = (props) => {
         variant={variant}
         value={inputValue}
         onChange={handleChange}
+        inputRef={ref}
       />
     </form>
   );
-};
+});
 
 export default InputForm;

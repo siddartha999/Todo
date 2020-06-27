@@ -92,7 +92,14 @@ function NavSidebar() {
         <Divider />
         <List>
           {lists.map((item) => (
-            <ListItem button key={item.id}>
+            <ListItem
+              button
+              key={item.id}
+              component={NavLink}
+              to={`/tasks/${item.id}`}
+              exact
+              activeClassName={classes["active-link"]}
+            >
               <ListItemIcon>{<ListSharpIcon />}</ListItemIcon>
               <ListItemText primary={item.listName} />
             </ListItem>

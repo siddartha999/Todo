@@ -5,7 +5,8 @@ const SESSION_STORAGE_KEY = "tasksList";
 
 const TasksReducer = (initialValue = []) => {
   const [state, dispatch] = useReducer(reducer, initialValue, () => {
-    let initValue = [];
+    //Retrieving the cached list from the sessionStorage.
+    let initValue;
     try {
       initValue =
         JSON.parse(sessionStorage.getItem(SESSION_STORAGE_KEY)) || initialValue;
@@ -16,6 +17,8 @@ const TasksReducer = (initialValue = []) => {
   });
 
   useEffect(() => {
+    //As useEffect gets executed every-time after the state is changed, makes it an ideal
+    //place to update the sessionStorage with the latest state.
     sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(state));
   }, [state]);
 
@@ -31,6 +34,7 @@ const reducer = (state, action) => {
           id: uuidv4(),
           task: action.inputValue,
           isStarred: action.starred || false,
+          listID: action.listID,
         },
       ];
     case "TOGGLE_TASK_STARRED":

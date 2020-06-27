@@ -4,10 +4,9 @@
  * Receives the dispatcher as a prop, and calls that with an object containing appropriate arguments.
  */
 
-import React, { useState, useContext, forwardRef } from "react";
+import React, { useState, forwardRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import { StarredModeContext } from "../Starred/Starred.context";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,7 +24,8 @@ const InputForm = forwardRef((props, ref) => {
   const variant = props.variant || "outlined";
   const placeholderLabel = props.placeholderLabel || "Enter a value";
   const actionType = props.actionType || "ADD";
-  const isStarredMode = useContext(StarredModeContext);
+  const listID = props.listID;
+  const isStarredMode = props.isStarredMode;
 
   const handleChange = (event) => {
     setInputValue(event.target.value);
@@ -37,6 +37,7 @@ const InputForm = forwardRef((props, ref) => {
       type: actionType,
       inputValue: inputValue,
       starred: isStarredMode,
+      listID: listID,
     });
     setInputValue("");
   };

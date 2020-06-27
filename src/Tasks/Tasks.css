@@ -11,8 +11,8 @@
   text-align: left;
 }
 
-.Tasks-add-task-form-container {
-  width: 100%;
+.Tasks-input-task-form-container {
+  width: 90%;
   height: 5rem;
   display: flex;
   align-items: center;
@@ -21,7 +21,7 @@
 
 .Tasks-task-list-container {
   text-align: left;
-  width: 80%;
+  width: 100%;
   height: calc(100% - 8rem);
   overflow: auto;
 }

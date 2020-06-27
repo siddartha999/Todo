@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
@@ -14,7 +14,7 @@ import StarsIcon from "@material-ui/icons/Stars";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import { NavLink } from "react-router-dom";
 import useStyles from "./NavSidebar.style";
-import useToggle from "../ReusableHooks/useToggle";
+import Emitter from "../services/Emitter";
 
 const NAV_BAR_FIRST_SECTION_ITEMS = [
   { name: "My Day", navLink: "/myday", icon: <WbSunnyIcon /> },
@@ -26,11 +26,15 @@ const NAV_BAR_SECOND_SECTION_ITEMS = [{ name: "Groups" }, { name: "New List" }];
 
 function NavSidebar() {
   const classes = useStyles();
-  const [open, toggleOpen] = useToggle(false);
+  const [open, setOpen] = useState(false);
 
   const handleToggleDrawer = () => {
-    toggleOpen();
+    setOpen(!open);
   };
+
+  Emitter.on("CLOSE_NAV_SIDE_BAR", () => {
+    setOpen(false);
+  });
 
   return (
     <div className={classes.root}>
@@ -52,7 +56,6 @@ function NavSidebar() {
             color="inherit"
             aria-label="toggle drawer"
             onClick={handleToggleDrawer}
-            className={clsx(classes.menuButton, {})}
           >
             <MenuIcon />
           </IconButton>

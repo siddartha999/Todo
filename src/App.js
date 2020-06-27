@@ -5,15 +5,21 @@ import TopAppBar from "./TopAppBar/TopAppBar";
 import { Route, Switch } from "react-router-dom";
 import Tasks from "./Tasks/Tasks";
 import Starred from "./Starred/Starred";
+import Emitter from "./services/Emitter";
 
 function App() {
+  const handleClick = () => {
+    console.log("clicked");
+    Emitter.emit("CLOSE_NAV_SIDE_BAR");
+  };
+
   return (
     <div className="App">
       <TopAppBar />
       <div className="App-sidebar-wrapper">
         <NavSidebar />
       </div>
-      <div className="App-content-wrapper">
+      <div className="App-center-content-wrapper" onClick={handleClick}>
         <Switch>
           <Route exact path="/" render={() => <p>WELCOME</p>} />
           <Route exact path="/tasks" render={() => <Tasks />} />

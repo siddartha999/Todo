@@ -15,13 +15,15 @@ import StarSharpIcon from "@material-ui/icons/StarSharp";
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 275,
+    width: "100%",
     border: "1px solid aliceblue",
     marginBottom: "1rem",
   },
   title: {
     fontFamily: "cursive",
-    width: "95%",
+    overflow: "hidden",
+    flex: 8,
+    wordBreak: "break-word",
   },
   content: {
     display: "flex",
@@ -48,11 +50,13 @@ const Task = (props) => {
       <Card className={classes.root}>
         <CardContent className={classes.content}>
           <Typography className={classes.title}>{taskValue}</Typography>
-          {isStarred ? (
-            <StarSharpIcon onClick={handleToggleStarred} />
-          ) : (
-            <StarBorderSharpIcon onClick={handleToggleStarred} />
-          )}
+          <div className="Task-star-icon-wrapper">
+            {isStarred ? (
+              <StarSharpIcon onClick={handleToggleStarred} />
+            ) : (
+              <StarBorderSharpIcon onClick={handleToggleStarred} />
+            )}
+          </div>
         </CardContent>
       </Card>
     </div>

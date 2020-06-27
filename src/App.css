@@ -5,15 +5,36 @@
 }
 
 .App-sidebar-wrapper {
-  width: 10%;
+  width: 57px;
   height: calc(100%);
   position: relative;
   top: 4rem;
 }
 
-.App-content-wrapper {
-  width: 90%;
+.App-center-content-wrapper {
+  width: calc(100% - 57px);
+  padding-left: 1.5rem;
   height: calc(100%);
   position: relative;
   top: 4rem;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: darkmagenta;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: darkorchid;
 }

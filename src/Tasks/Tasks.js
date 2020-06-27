@@ -30,7 +30,7 @@ const Tasks = (props) => {
       <div className="Tasks-title-container">
         <p>{title}</p>
       </div>
-      <div className="Tasks-add-task-form-container">
+      <div className="Tasks-input-task-form-container">
         <InputForm
           dispatch={dispatch}
           placeholderLabel="Add a task"

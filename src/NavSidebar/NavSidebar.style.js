@@ -10,9 +10,6 @@ const useStyles = makeStyles((theme) => ({
       top: "4.5rem",
     },
   },
-  menuButton: {
-    marginRight: 36,
-  },
   hide: {
     display: "none",
   },
@@ -36,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     overflowX: "hidden",
     width: theme.spacing(7) + 1,
     [theme.breakpoints.up("sm")]: {
-      width: theme.spacing(9) + 1,
+      width: "57px",
     },
   },
   toolbar: {
@@ -50,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   drawerIcon: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,

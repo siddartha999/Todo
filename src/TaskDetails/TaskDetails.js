@@ -5,6 +5,7 @@ import InputForm from "../InputForm/InputForm";
 import { makeStyles } from "@material-ui/core/styles";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import DeleteSharpIcon from "@material-ui/icons/DeleteSharp";
+import Emitter from "../services/Emitter";
 
 const useStyles = makeStyles((theme) => ({
   headerTitle: {
@@ -42,8 +43,15 @@ const TaskDetails = (props) => {
     props.closeTaskDetailsSection();
   };
 
-  const handleDeleteIconClicked = () => {
+  const handleDelete = () => {
     props.deleteTask(taskID);
+  };
+
+  const handleDeleteIconClicked = () => {
+    Emitter.emit("DISPLAY_CONFIRMATION_DIALOG", {
+      content: `"${taskName}" will be deleted permanently.`,
+      handler: handleDelete,
+    });
   };
 
   return (

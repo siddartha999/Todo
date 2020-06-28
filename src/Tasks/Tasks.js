@@ -15,21 +15,17 @@ import TaskDetails from "../TaskDetails/TaskDetails";
 
 const Tasks = (props) => {
   const title = props.title || "Tasks";
-  const [tasksList, dispatch] = TasksReducer([]);
+  let tasksList = props.tasksList;
+  let dispatch = props.dispatch;
   const [displayTaskDetails, setDisplayTaskDetails] = useState(false);
   const isStarredMode = props.starredMode;
   const listID = props.listID;
-  let renderList = tasksList;
   const [selectedTaskID, setSelectedTaskID] = useState(null);
 
-  //Render either starred tasks or tasks belonging to a certain list.
-  if (isStarredMode) {
-    renderList = tasksList.filter((task) => task.isStarred);
-  } else if (listID) {
-    renderList = tasksList.filter((task) => task.listID === listID);
-  } else {
-    //filters the tasks which do not belong to any list.
-    renderList = tasksList.filter((task) => !task.listID);
+  if (!tasksList || !dispatch) {
+    //If the tasksList, dispatch aren't retrieved from props i.e, not in starred or list-mode(for now)
+    //retrieve them through the reducer.
+    [tasksList, dispatch] = TasksReducer();
   }
 
   const displayTaskDetailsSection = (taskID) => {
@@ -42,6 +38,44 @@ const Tasks = (props) => {
   const closeTaskDetailsSection = () => {
     //Closes the task-details section.
     setDisplayTaskDetails(false);
+  };
+
+  /**
+   * Function to delete the task and update the selected task to
+   * the next ID: if it's available or
+   * the previous ID: if it's available or
+   * close the task-details sidebar.
+   */
+  const deleteTask = (taskID) => {
+    if (tasksList.length === 1) {
+      //If there is only-one task, there is no need to display the task-details section.
+      setDisplayTaskDetails(false);
+      dispatch({ type: "DELETE_TASK", id: taskID });
+      return;
+    }
+
+    let index = -1;
+
+    //retrieve the index of the task-to-be-deleted.
+    for (let task of tasksList) {
+      index++;
+      if (task.id === taskID) {
+        break;
+      }
+    }
+
+    //update the selectedTaskID accordingly.
+    if (index < tasksList.length) {
+      if (index + 1 === tasksList.length) {
+        //If the last task-item is being deleted, set the selectedTaskID to the previous task.
+        index--;
+      } else {
+        index++;
+      }
+      setSelectedTaskID(tasksList[index].id);
+    }
+
+    dispatch({ type: "DELETE_TASK", id: taskID });
   };
 
   /**
@@ -61,13 +95,12 @@ const Tasks = (props) => {
     }
 
     return (
-      <div className="Tasks-side-content">
-        <TaskDetails
-          details={taskDetailsObj}
-          dispatch={dispatch}
-          closeTaskDetailsSection={closeTaskDetailsSection}
-        />
-      </div>
+      <TaskDetails
+        details={taskDetailsObj}
+        dispatch={dispatch}
+        deleteTask={deleteTask}
+        closeTaskDetailsSection={closeTaskDetailsSection}
+      />
     );
   };
 
@@ -89,7 +122,7 @@ const Tasks = (props) => {
           />
         </div>
         <div className="Tasks-task-list-container">
-          {renderList.map((task) => (
+          {tasksList.map((task) => (
             <Task
               key={task.id}
               details={task}
@@ -99,7 +132,13 @@ const Tasks = (props) => {
           ))}
         </div>
       </div>
-      {displayTaskDetails && generateTasksDetailsSidebarJSX()}
+      <div
+        className={`Tasks-side-content ${
+          !displayTaskDetails ? "no-width" : null
+        }`}
+      >
+        {displayTaskDetails && generateTasksDetailsSidebarJSX()}
+      </div>
     </div>
   );
 };

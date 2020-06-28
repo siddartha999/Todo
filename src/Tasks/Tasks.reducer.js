@@ -38,6 +38,10 @@ const reducer = (state, action) => {
           steps: [],
         },
       ];
+
+    case "DELETE_TASK":
+      return state.filter((task) => task.id !== action.id);
+
     case "TOGGLE_TASK_STARRED":
       return state.filter((task) => {
         if (task.id === action.id) {

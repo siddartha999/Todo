@@ -3,9 +3,10 @@ import "./App.css";
 import NavSidebar from "./NavSidebar/NavSidebar";
 import TopAppBar from "./TopAppBar/TopAppBar";
 import { Route, Switch } from "react-router-dom";
-import Tasks from "./Tasks/Tasks";
 import RenderList from "./RenderList/RenderList";
 import Emitter from "./services/Emitter";
+import Starred from "./Starred/Starred";
+import RetrieveOrphanTaskList from "./RetrieveOrphanTaskList/RetrieveOrphanTaskList";
 
 function App() {
   const handleClick = () => {
@@ -21,7 +22,11 @@ function App() {
       <div className="App-center-content-wrapper" onClick={handleClick}>
         <Switch>
           <Route exact path="/" render={() => <p>WELCOME</p>} />
-          <Route exact path="/tasks" render={() => <Tasks />} />
+          <Route
+            exact
+            path="/tasks"
+            render={() => <RetrieveOrphanTaskList />}
+          />
           <Route
             exact
             path="/tasks/:listID?"
@@ -29,11 +34,7 @@ function App() {
               <RenderList listID={routeProps.match.params.listID} />
             )}
           />
-          <Route
-            exact
-            path="/starred"
-            render={() => <Tasks title="Starred Tasks" starredMode />}
-          />
+          <Route exact path="/starred" render={() => <Starred />} />
         </Switch>
       </div>
     </div>

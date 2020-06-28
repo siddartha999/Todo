@@ -4,6 +4,7 @@ import Card from "@material-ui/core/Card";
 import InputForm from "../InputForm/InputForm";
 import { makeStyles } from "@material-ui/core/styles";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import DeleteSharpIcon from "@material-ui/icons/DeleteSharp";
 
 const useStyles = makeStyles((theme) => ({
   headerTitle: {
@@ -23,6 +24,8 @@ const useStyles = makeStyles((theme) => ({
   footer: {
     width: "90%",
     height: "100%",
+    display: "flex",
+    justifyContent: "space-between",
   },
   exitIcon: {
     cursor: "pointer",
@@ -37,6 +40,10 @@ const TaskDetails = (props) => {
 
   const handleExitIconClicked = () => {
     props.closeTaskDetailsSection();
+  };
+
+  const handleDeleteIconClicked = () => {
+    props.deleteTask(taskID);
   };
 
   return (
@@ -85,10 +92,16 @@ const TaskDetails = (props) => {
 
       <div className="TaskDetails-footer-actions-section">
         <Card className={classes.footer}>
-          <div className="TaskDetails-footer-close-action-wrapper">
+          <div className="TaskDetails-footer-action-wrapper TaskDetails-footer-close-action">
             <ExitToAppIcon
               className={classes.exitIcon}
               onClick={handleExitIconClicked}
+            />
+          </div>
+          <div className="TaskDetails-footer-action-wrapper TaskDetails-footer-delete-action">
+            <DeleteSharpIcon
+              className={classes.exitIcon}
+              onClick={handleDeleteIconClicked}
             />
           </div>
         </Card>

@@ -45,9 +45,17 @@
   height: 3rem;
 }
 
-.TaskDetails-footer-close-action-wrapper {
+.TaskDetails-footer-action-wrapper {
   width: 3rem;
   height: 100%;
   display: flex;
   align-items: center;
+}
+
+.TaskDetails-footer-close-action {
+  justify-content: flex-start;
+}
+
+.TaskDetails-footer-delete-action {
+  justify-content: flex-end;
 }

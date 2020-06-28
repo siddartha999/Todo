@@ -19,23 +19,24 @@ const useStyles = makeStyles({
     border: "1px solid aliceblue",
     marginBottom: "1rem",
   },
+  content: {
+    display: "flex",
+    paddingBottom: "16px !important",
+  },
   title: {
-    fontFamily: "cursive",
+    fontFamily: "sans-serif",
     overflow: "hidden",
     flex: 8,
     wordBreak: "break-word",
   },
-  content: {
-    display: "flex",
-  },
 });
 
 const Task = (props) => {
-  const taskValue = props.value;
+  const taskValue = props.details.task;
   const classes = useStyles();
-  const isStarred = props.isStarred;
+  const isStarred = props.details.isStarred;
   const dispatch = props.dispatch;
-  const taskID = props.id;
+  const taskID = props.details.id;
 
   const handleToggleStarred = (event) => {
     event.preventDefault();
@@ -45,11 +46,22 @@ const Task = (props) => {
     });
   };
 
+  const updateDisplayTaskDetails = () => {
+    //Triggers the display of task-details.
+    props.displayTaskDetailsSection(taskID);
+  };
+
   return (
     <div className="Task">
       <Card className={classes.root}>
         <CardContent className={classes.content}>
-          <Typography className={classes.title}>{taskValue}</Typography>
+          <Typography
+            className={classes.title}
+            onClick={updateDisplayTaskDetails}
+          >
+            {taskValue}
+          </Typography>
+
           <div className="Task-star-icon-wrapper">
             {isStarred ? (
               <StarSharpIcon onClick={handleToggleStarred} />

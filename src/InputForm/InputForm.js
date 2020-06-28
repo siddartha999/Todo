@@ -4,28 +4,43 @@
  * Receives the dispatcher as a prop, and calls that with an object containing appropriate arguments.
  */
 
-import React, { useState, forwardRef } from "react";
+import React, { useState, forwardRef, createRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import AddSharpIcon from "@material-ui/icons/AddSharp";
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    display: "flex",
+    alignItems: "center",
     width: "100%",
     "& > *": {
       width: "100%",
     },
+    "& .MuiInputBase-root.MuiFilledInput-root.MuiFilledInput-underline.MuiInputBase-formControl": {
+      backgroundColor: "rgb(244, 244, 244)",
+    },
+  },
+  addIcon: {
+    width: "2rem",
+    cursor: "pointer",
   },
 }));
 
 const InputForm = forwardRef((props, ref) => {
   const classes = useStyles();
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(props.initialValue || "");
   const dispatch = props.dispatch;
   const variant = props.variant || "outlined";
-  const placeholderLabel = props.placeholderLabel || "Enter a value";
+  const placeholderLabel = props.placeholderLabel || "";
   const actionType = props.actionType || "ADD";
   const listID = props.listID;
   const isStarredMode = props.isStarredMode;
+  const displayAddIcon = props.displayAddIcon;
+
+  if (!ref) {
+    ref = createRef();
+  }
 
   const handleChange = (event) => {
     setInputValue(event.target.value);
@@ -38,8 +53,15 @@ const InputForm = forwardRef((props, ref) => {
       inputValue: inputValue,
       starred: isStarredMode,
       listID: listID,
+      taskID: props.taskID,
     });
     setInputValue("");
+  };
+
+  const handleAddIconClicked = () => {
+    if (ref) {
+      ref.current.focus();
+    }
   };
 
   return (
@@ -49,6 +71,13 @@ const InputForm = forwardRef((props, ref) => {
       autoComplete="off"
       onSubmit={handleSubmit}
     >
+      {displayAddIcon && (
+        <AddSharpIcon
+          className={classes.addIcon}
+          onClick={handleAddIconClicked}
+        />
+      )}
+
       <TextField
         id="outlined-basic"
         label={placeholderLabel}

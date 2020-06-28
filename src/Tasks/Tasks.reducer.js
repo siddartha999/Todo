@@ -35,6 +35,7 @@ const reducer = (state, action) => {
           task: action.inputValue,
           isStarred: action.starred || false,
           listID: action.listID,
+          steps: [],
         },
       ];
     case "TOGGLE_TASK_STARRED":
@@ -44,6 +45,21 @@ const reducer = (state, action) => {
         }
         return task;
       });
+
+    case "ADD_STEP":
+      let taskItem;
+      for (let task of state) {
+        if (task.id === action.taskID) {
+          taskItem = task;
+          break;
+        }
+      }
+      if (!taskItem.steps) {
+        //In-case the steps property isn't initialized.
+        taskItem.steps = [];
+      }
+      taskItem.steps.push({ step: action.inputValue, id: uuidv4() });
+      return [...state];
 
     default:
       return 0;

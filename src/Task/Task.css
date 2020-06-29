@@ -1,6 +1,14 @@
 .Task {
   width: 90%;
+  margin-bottom: 1rem;
   cursor: pointer;
+}
+
+.Task-name-wrapper {
+  flex: 8;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
 }
 
 .Task-star-icon-wrapper {

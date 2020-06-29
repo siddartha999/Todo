@@ -65,6 +65,15 @@ const reducer = (state, action) => {
       taskItem.steps.push({ step: action.inputValue, id: uuidv4() });
       return [...state];
 
+    case "UPDATE_TASK_NAME":
+      return state.map((task) => {
+        if (task.id === action.taskID) {
+          //Update the value of task.
+          task.task = action.inputValue;
+        }
+        return task;
+      });
+
     default:
       return 0;
   }

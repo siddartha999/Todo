@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
   contentSteps: {
     width: "90%",
-    marginBottom: "1rem",
+    paddingBottom: "1rem",
     minHeight: "7rem",
     display: "flex",
     flexWrap: "wrap",
@@ -60,12 +60,13 @@ const TaskDetails = (props) => {
         <Card className={classes.headerTitle}>
           <div className="TaskDetails-header-title-wrapper">
             <InputForm
-              variant="outlined"
+              variant="standard"
               actionType="UPDATE_TASK_NAME"
               dispatch={props.dispatch}
               taskID={taskID}
               initialValue={taskName}
               placeholderLabel="Update task"
+              noReset
             />
           </div>
         </Card>
@@ -87,7 +88,7 @@ const TaskDetails = (props) => {
           </div>
           <div className="TaskDetails-content-add-step-container">
             <InputForm
-              variant="filled"
+              variant="standard"
               placeholderLabel="Add step"
               actionType="ADD_STEP"
               dispatch={props.dispatch}

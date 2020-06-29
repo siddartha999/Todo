@@ -118,7 +118,6 @@ const Tasks = (props) => {
             actionType="ADD_TASK"
             variant="outlined"
             isStarredMode={isStarredMode}
-            displayAddIcon
           />
         </div>
         <div className="Tasks-task-list-container">

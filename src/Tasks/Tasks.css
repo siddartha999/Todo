@@ -13,7 +13,7 @@
 }
 
 .Tasks-side-content {
-  width: 25%;
+  width: 30%;
   height: 100%;
   background-color: rgb(244, 244, 244);
   transition: width 300ms ease-in;

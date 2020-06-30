@@ -121,6 +121,21 @@ const reducer = (state, action) => {
         return task;
       });
 
+    case "UPDATE_STEP":
+      return state.map((task) => {
+        if (task.id === action.taskID) {
+          //If the current task is the task in action.
+          for (let step of task.steps) {
+            if (step.id === action.stepID) {
+              //Update the step.
+              step.step = action.inputValue;
+              break;
+            }
+          }
+        }
+        return task;
+      });
+
     default:
       return state;
   }

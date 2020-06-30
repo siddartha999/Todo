@@ -106,11 +106,12 @@ const TaskDetails = (props) => {
   /**
    * Handler to update the name of a step.
    */
-  const handleUpdateStep = (inputValue) => {
+  const handleUpdateStep = (inputValue, additionalInfo) => {
     dispatch({
       type: "UPDATE_STEP",
       inputValue: inputValue,
-      taskID: props.taskID,
+      taskID: taskID,
+      stepID: additionalInfo.stepID,
     });
   };
 
@@ -166,9 +167,9 @@ const TaskDetails = (props) => {
                 <div className="TaskDetails-content-step-input-container">
                   <InputForm
                     variant="standard"
-                    actionType="UPDATE_STEP"
                     initialValue={stepItem.step}
                     submitHandler={handleUpdateStep}
+                    additionalInfo={{ stepID: stepItem.id }}
                   />
                 </div>
                 <div

@@ -34,6 +34,7 @@ const InputForm = forwardRef((props, ref) => {
   const variant = props.variant || "outlined";
   const placeholderLabel = props.placeholderLabel || "";
   const displayAddIcon = props.displayAddIcon;
+  const additionalInfo = props.additionalInfo;
 
   useEffect(() => {
     //Initialized the input value here because the value is persisted in-between the re-renders
@@ -53,7 +54,8 @@ const InputForm = forwardRef((props, ref) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.submitHandler(inputValue);
+    //Trigger the submit handler along with the corresponding arguments.
+    props.submitHandler(inputValue, additionalInfo);
     if (!props.noReset) {
       setInputValue("");
     }

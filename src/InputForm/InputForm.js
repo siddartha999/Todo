@@ -31,12 +31,8 @@ const useStyles = makeStyles((theme) => ({
 const InputForm = forwardRef((props, ref) => {
   const classes = useStyles();
   const [inputValue, setInputValue] = useState("");
-  const dispatch = props.dispatch;
   const variant = props.variant || "outlined";
   const placeholderLabel = props.placeholderLabel || "";
-  const actionType = props.actionType || "ADD";
-  const listID = props.listID;
-  const isStarredMode = props.isStarredMode;
   const displayAddIcon = props.displayAddIcon;
 
   useEffect(() => {
@@ -57,13 +53,7 @@ const InputForm = forwardRef((props, ref) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch({
-      type: actionType,
-      inputValue: inputValue,
-      starred: isStarredMode,
-      listID: listID,
-      taskID: props.taskID,
-    });
+    props.submitHandler(inputValue);
     if (!props.noReset) {
       setInputValue("");
     }

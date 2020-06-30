@@ -83,12 +83,45 @@ const TaskDetails = (props) => {
   /**
    * Handler to toggle the completion status of a step.
    */
-  const handleToggleComplete = (event) => {
+  const handleToggleStepCompletion = (event) => {
     const stepID = event.target.getAttribute("value");
     dispatch({
       type: "TOGGLE_STEP_COMPLETION",
       taskID: taskID,
       stepID: stepID,
+    });
+  };
+
+  /**
+   * Handler to update the name of the task.
+   */
+  const handleUpdateTaskName = (inputValue) => {
+    dispatch({
+      type: "UPDATE_TASK_NAME",
+      inputValue: inputValue,
+      taskID: taskID,
+    });
+  };
+
+  /**
+   * Handler to update the name of a step.
+   */
+  const handleUpdateStep = (inputValue) => {
+    dispatch({
+      type: "UPDATE_STEP",
+      inputValue: inputValue,
+      taskID: props.taskID,
+    });
+  };
+
+  /**
+   * Handler to add a step to the task.
+   */
+  const handleAddStep = (inputValue) => {
+    dispatch({
+      type: "ADD_STEP",
+      inputValue: inputValue,
+      taskID: taskID,
     });
   };
 
@@ -99,12 +132,10 @@ const TaskDetails = (props) => {
           <div className="TaskDetails-header-title-wrapper">
             <InputForm
               variant="standard"
-              actionType="UPDATE_TASK_NAME"
-              dispatch={dispatch}
-              taskID={taskID}
               initialValue={taskName}
               placeholderLabel="Update task"
               noReset
+              submitHandler={handleUpdateTaskName}
             />
           </div>
         </Card>
@@ -121,12 +152,12 @@ const TaskDetails = (props) => {
                 <div className="TaskDetails-toggle-completed-icon-container">
                   {stepItem.isComplete ? (
                     <CheckCircleOutlineIcon
-                      onClick={handleToggleComplete}
+                      onClick={handleToggleStepCompletion}
                       value={stepItem.id}
                     />
                   ) : (
                     <RadioButtonUncheckedIcon
-                      onClick={handleToggleComplete}
+                      onClick={handleToggleStepCompletion}
                       value={stepItem.id}
                     />
                   )}
@@ -136,9 +167,8 @@ const TaskDetails = (props) => {
                   <InputForm
                     variant="standard"
                     actionType="UPDATE_STEP"
-                    dispatch={dispatch}
-                    taskID={taskID}
                     initialValue={stepItem.step}
+                    submitHandler={handleUpdateStep}
                   />
                 </div>
                 <div
@@ -157,10 +187,8 @@ const TaskDetails = (props) => {
             <InputForm
               variant="standard"
               placeholderLabel="Add step"
-              actionType="ADD_STEP"
-              dispatch={dispatch}
-              taskID={taskID}
               displayAddIcon
+              submitHandler={handleAddStep}
             />
           </div>
         </Card>

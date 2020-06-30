@@ -32,6 +32,7 @@ const reducer = (state, action) => {
         ...state,
         {
           id: uuidv4(),
+          isComplete: action.isComplete,
           task: action.inputValue,
           isStarred: action.starred || false,
           listID: action.listID,
@@ -47,6 +48,15 @@ const reducer = (state, action) => {
       return state.filter((task) => {
         if (task.id === action.id) {
           task.isStarred = !task.isStarred;
+        }
+        return task;
+      });
+
+    case "TOGGLE_TASK_COMPLETION": //Toggles the completion status of a task.
+      return state.filter((task) => {
+        if (task.id === action.taskID) {
+          //If the current task is the task in action, toggle its completion status.
+          task.isComplete = !task.isComplete;
         }
         return task;
       });

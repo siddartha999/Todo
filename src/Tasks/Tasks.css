@@ -23,10 +23,25 @@
   width: 0;
 }
 
-.Tasks-title-container {
-  width: 100%;
+.Tasks-main-content-header {
+  width: 90%;
   height: 3rem;
+  min-width: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Tasks-title-container {
+  width: 20%;
   text-align: left;
+  padding-left: 0.25rem;
+}
+
+.Tasks-header-toggle-display-completed-tasks-container {
+  height: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .Tasks-input-task-form-container {

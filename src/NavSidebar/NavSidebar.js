@@ -49,6 +49,16 @@ function NavSidebar() {
     }
   };
 
+  /**
+   * Handler to add a list-item.
+   */
+  const handleAddListItem = (inputValue) => {
+    dispatch({
+      type: "ADD_LIST_ITEM",
+      inputValue: inputValue,
+    });
+  };
+
   return (
     <div className={classes.root}>
       <Drawer
@@ -117,8 +127,7 @@ function NavSidebar() {
               ref={addNewListInputRef}
               placeholderLabel="New List"
               variant="outlined"
-              dispatch={dispatch}
-              actionType="ADD_LIST_ITEM"
+              submitHandler={handleAddListItem}
             ></InputForm>
           </div>
         </div>

@@ -12,6 +12,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import StarBorderSharpIcon from "@material-ui/icons/StarBorderSharp";
 import StarSharpIcon from "@material-ui/icons/StarSharp";
+import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
+import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 
 const useStyles = makeStyles({
   root: {
@@ -44,6 +46,7 @@ const Task = (props) => {
   const dispatch = props.dispatch;
   const taskID = props.details.id;
   const steps = props.details.steps;
+  const isTaskCompleted = props.details.isComplete;
 
   const handleToggleStarred = (event) => {
     event.preventDefault();
@@ -73,10 +76,25 @@ const Task = (props) => {
     return;
   };
 
+  /**
+   *  Handler to toggle the completion status of the task.
+   */
+  const handleToggleTaskCompletion = () => {
+    dispatch({ type: "TOGGLE_TASK_COMPLETION", taskID: taskID });
+  };
+
   return (
     <div className="Task">
       <Card className={classes.root}>
         <CardContent className={classes.content}>
+          <div className="Task-icon-wrapper">
+            {isTaskCompleted ? (
+              <CheckCircleOutlineIcon onClick={handleToggleTaskCompletion} />
+            ) : (
+              <RadioButtonUncheckedIcon onClick={handleToggleTaskCompletion} />
+            )}
+          </div>
+
           <div
             className="Task-details-wrapper"
             onClick={updateDisplayTaskDetails}

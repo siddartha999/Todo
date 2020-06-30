@@ -36,6 +36,7 @@ const reducer = (state, action) => {
           isStarred: action.starred || false,
           listID: action.listID,
           steps: [],
+          note: "",
         },
       ];
 
@@ -74,8 +75,25 @@ const reducer = (state, action) => {
         return task;
       });
 
+    case "DELETE_STEP":
+      return state.map((task) => {
+        if (task.id === action.taskID) {
+          let index = -1;
+          for (let step of task.steps) {
+            index++;
+            if (step.id === action.stepID) {
+              //Find the index of the step to be deleted.
+              break;
+            }
+          }
+          //Delete the step from the steps-list.
+          task.steps.splice(index, 1); //Remove 1 element at the index position.
+        }
+        return task;
+      });
+
     default:
-      return 0;
+      return state;
   }
 };
 

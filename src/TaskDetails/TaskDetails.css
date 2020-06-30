@@ -25,7 +25,26 @@
 }
 
 .TaskDetails-content-steps-container {
+  width: 100%;
   padding-bottom: 1rem;
+}
+
+.TaskDetails-content-step-container {
+  width: 100%;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.TaskDetails-content-step-input-container {
+  width: 75%;
+}
+
+.TaskDetails-content-step-remove-icon-container {
+  cursor: pointer;
+  padding-top: 1.25rem;
+  padding-left: 0.5rem;
 }
 
 .TaskDetails-header-title-wrapper {

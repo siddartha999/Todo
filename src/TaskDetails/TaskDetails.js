@@ -5,6 +5,7 @@ import InputForm from "../InputForm/InputForm";
 import { makeStyles } from "@material-ui/core/styles";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import DeleteSharpIcon from "@material-ui/icons/DeleteSharp";
+import CloseIcon from "@material-ui/icons/Close";
 import Emitter from "../services/Emitter";
 
 const useStyles = makeStyles((theme) => ({
@@ -38,19 +39,29 @@ const TaskDetails = (props) => {
   const taskName = props.details.task;
   const taskID = props.details.id;
   const steps = props.details.steps || [];
+  const dispatch = props.dispatch;
 
   const handleExitIconClicked = () => {
     props.closeTaskDetailsSection();
   };
 
-  const handleDelete = () => {
+  const handleDeleteTaskIconClicked = () => {
     props.deleteTask(taskID);
   };
 
   const handleDeleteIconClicked = () => {
     Emitter.emit("DISPLAY_CONFIRMATION_DIALOG", {
       content: `"${taskName}" will be deleted permanently.`,
-      handler: handleDelete,
+      handler: handleDeleteTaskIconClicked,
+    });
+  };
+
+  const handleDeleteStepClicked = (event) => {
+    const stepID = event.target.getAttribute("value");
+    dispatch({
+      type: "DELETE_STEP",
+      taskID: taskID,
+      stepID: stepID,
     });
   };
 
@@ -62,7 +73,7 @@ const TaskDetails = (props) => {
             <InputForm
               variant="standard"
               actionType="UPDATE_TASK_NAME"
-              dispatch={props.dispatch}
+              dispatch={dispatch}
               taskID={taskID}
               initialValue={taskName}
               placeholderLabel="Update task"
@@ -76,14 +87,29 @@ const TaskDetails = (props) => {
         <Card className={classes.contentSteps}>
           <div className="TaskDetails-content-steps-container">
             {steps.map((stepItem) => (
-              <InputForm
+              <div
+                className="TaskDetails-content-step-container"
                 key={stepItem.id}
-                variant="standard"
-                actionType="UPDATE_STEP"
-                dispatch={props.dispatch}
-                taskID={taskID}
-                initialValue={stepItem.step}
-              />
+              >
+                <div className="TaskDetails-content-step-input-container">
+                  <InputForm
+                    variant="standard"
+                    actionType="UPDATE_STEP"
+                    dispatch={dispatch}
+                    taskID={taskID}
+                    initialValue={stepItem.step}
+                  />
+                </div>
+                <div
+                  className="TaskDetails-content-step-remove-icon-container"
+                  title="Delete step"
+                >
+                  <CloseIcon
+                    onClick={handleDeleteStepClicked}
+                    value={stepItem.id}
+                  />
+                </div>
+              </div>
             ))}
           </div>
           <div className="TaskDetails-content-add-step-container">
@@ -91,7 +117,7 @@ const TaskDetails = (props) => {
               variant="standard"
               placeholderLabel="Add step"
               actionType="ADD_STEP"
-              dispatch={props.dispatch}
+              dispatch={dispatch}
               taskID={taskID}
               displayAddIcon
             />

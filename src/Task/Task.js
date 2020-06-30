@@ -62,7 +62,7 @@ const Task = (props) => {
             <Typography className={classes.title}>{taskValue}</Typography>
           </div>
 
-          <div className="Task-star-icon-wrapper">
+          <div className="Task-icon-wrapper">
             {isStarred ? (
               <StarSharpIcon onClick={handleToggleStarred} />
             ) : (

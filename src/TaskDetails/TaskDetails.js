@@ -6,6 +6,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import DeleteSharpIcon from "@material-ui/icons/DeleteSharp";
 import CloseIcon from "@material-ui/icons/Close";
+import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
+import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import Emitter from "../services/Emitter";
 
 const useStyles = makeStyles((theme) => ({
@@ -45,10 +47,20 @@ const TaskDetails = (props) => {
     props.closeTaskDetailsSection();
   };
 
+  /**
+   * This function will be passed to the confirmation dialog as a success handler.
+   * This function will be executed after the user confirms his action.
+   * Dispatch isn't called here directly because, the next selectedTaskID needs to be evaluated, which
+   * should take place in the "Tasks" component, as it stores the list of all the tasks.
+   */
   const handleDeleteTaskIconClicked = () => {
     props.deleteTask(taskID);
   };
 
+  /**
+   * Handler to delete the task.
+   *Emits an event to the confirmation dialog, to confirm the user's action.
+   */
   const handleDeleteIconClicked = () => {
     Emitter.emit("DISPLAY_CONFIRMATION_DIALOG", {
       content: `"${taskName}" will be deleted permanently.`,
@@ -56,10 +68,25 @@ const TaskDetails = (props) => {
     });
   };
 
+  /**
+   * Handler to delete a step of a task.
+   */
   const handleDeleteStepClicked = (event) => {
     const stepID = event.target.getAttribute("value");
     dispatch({
       type: "DELETE_STEP",
+      taskID: taskID,
+      stepID: stepID,
+    });
+  };
+
+  /**
+   * Handler to toggle the completion status of a step.
+   */
+  const handleToggleComplete = (event) => {
+    const stepID = event.target.getAttribute("value");
+    dispatch({
+      type: "TOGGLE_STEP_COMPLETION",
       taskID: taskID,
       stepID: stepID,
     });
@@ -91,6 +118,20 @@ const TaskDetails = (props) => {
                 className="TaskDetails-content-step-container"
                 key={stepItem.id}
               >
+                <div className="TaskDetails-toggle-completed-icon-container">
+                  {stepItem.isComplete ? (
+                    <CheckCircleOutlineIcon
+                      onClick={handleToggleComplete}
+                      value={stepItem.id}
+                    />
+                  ) : (
+                    <RadioButtonUncheckedIcon
+                      onClick={handleToggleComplete}
+                      value={stepItem.id}
+                    />
+                  )}
+                </div>
+
                 <div className="TaskDetails-content-step-input-container">
                   <InputForm
                     variant="standard"

@@ -15,7 +15,7 @@
 
 .TaskDetails-content-section {
   width: 100%;
-  height: calc(100% - 9rem);
+  height: calc(100% - 10rem);
   overflow: auto;
   display: flex;
   justify-content: center;
@@ -37,13 +37,19 @@
   align-items: center;
 }
 
+.TaskDetails-toggle-completed-icon-container {
+  cursor: pointer;
+  padding-top: 0.5rem;
+  padding-right: 0.5rem;
+}
+
 .TaskDetails-content-step-input-container {
-  width: 75%;
+  width: calc(100% - 5rem);
 }
 
 .TaskDetails-content-step-remove-icon-container {
   cursor: pointer;
-  padding-top: 1.25rem;
+  padding-top: 0.5rem;
   padding-left: 0.5rem;
 }
 
@@ -57,11 +63,10 @@
 }
 
 .TaskDetails-footer-actions-section {
-  align-self: flex-end;
   width: 100%;
   justify-content: center;
   display: flex;
-  height: 3rem;
+  height: 2.25rem;
 }
 
 .TaskDetails-footer-action-wrapper {

@@ -63,7 +63,11 @@ const reducer = (state, action) => {
         //In-case the steps property isn't initialized.
         taskItem.steps = [];
       }
-      taskItem.steps.push({ step: action.inputValue, id: uuidv4() });
+      taskItem.steps.push({
+        step: action.inputValue,
+        id: uuidv4(),
+        isComplete: false,
+      });
       return [...state];
 
     case "UPDATE_TASK_NAME":
@@ -88,6 +92,21 @@ const reducer = (state, action) => {
           }
           //Delete the step from the steps-list.
           task.steps.splice(index, 1); //Remove 1 element at the index position.
+        }
+        return task;
+      });
+
+    case "TOGGLE_STEP_COMPLETION": //Toggles the completion status of a step.
+      return state.map((task) => {
+        if (task.id === action.taskID) {
+          //If the current task is the task in action.
+          for (let step of task.steps) {
+            if (step.id === action.stepID) {
+              //Toggle the step's completion status.
+              step.isComplete = !step.isComplete;
+              break;
+            }
+          }
         }
         return task;
       });

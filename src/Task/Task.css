@@ -4,11 +4,21 @@
   cursor: pointer;
 }
 
-.Task-name-wrapper {
+.Task-details-wrapper {
   flex: 8;
-  padding: 1rem;
+  padding: 0.5rem 1rem 0.25rem 1rem;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+}
+
+.Task-name-wrapper {
+  width: 100%;
+  padding-bottom: 0.5rem;
+}
+
+.Task-additional-details-wrapper {
+  width: 100%;
 }
 
 .Task-icon-wrapper {

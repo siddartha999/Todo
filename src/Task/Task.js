@@ -32,6 +32,9 @@ const useStyles = makeStyles({
     overflow: "hidden",
     wordBreak: "break-word",
   },
+  subTaskDetail: {
+    fontFamily: "serif",
+  },
 });
 
 const Task = (props) => {
@@ -40,6 +43,7 @@ const Task = (props) => {
   const isStarred = props.details.isStarred;
   const dispatch = props.dispatch;
   const taskID = props.details.id;
+  const steps = props.details.steps;
 
   const handleToggleStarred = (event) => {
     event.preventDefault();
@@ -54,12 +58,37 @@ const Task = (props) => {
     props.displayTaskDetailsSection(taskID);
   };
 
+  /**
+   * Generates the total no.of completed steps(if there are any) for the current task.
+   */
+  const generateCompletedStepsDetails = () => {
+    if (steps && steps.length) {
+      const completedSteps = steps.filter((step) => step.isComplete).length;
+      return (
+        <Typography className={classes.subTaskDetail}>
+          {completedSteps} of {steps.length}
+        </Typography>
+      );
+    }
+    return;
+  };
+
   return (
     <div className="Task">
       <Card className={classes.root}>
         <CardContent className={classes.content}>
-          <div className="Task-name-wrapper" onClick={updateDisplayTaskDetails}>
-            <Typography className={classes.title}>{taskValue}</Typography>
+          <div
+            className="Task-details-wrapper"
+            onClick={updateDisplayTaskDetails}
+          >
+            <div className="Task-name-wrapper">
+              <Typography className={classes.title}>{taskValue}</Typography>
+            </div>
+            <div className="Task-additional-details-wrapper">
+              <div className="Task-sub-tasks-details-wrapper">
+                {generateCompletedStepsDetails()}
+              </div>
+            </div>
           </div>
 
           <div className="Task-icon-wrapper">

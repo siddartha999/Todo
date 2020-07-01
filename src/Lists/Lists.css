@@ -1,0 +1,36 @@
+.Lists {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: baseline;
+}
+
+.Lists-input-form-container {
+  width: 95%;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  padding-bottom: 1rem;
+}
+
+.Lists-empty-lists {
+  width: 100%;
+}
+
+.Lists-list-items-container {
+  width: 100%;
+  height: calc(100% - 6rem);
+  overflow: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: baseline;
+}
+
+.Lists-list-item-container {
+  width: 12rem;
+  min-height: 15rem;
+  padding: 1rem;
+}

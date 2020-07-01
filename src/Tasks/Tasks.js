@@ -167,7 +167,6 @@ const Tasks = (props) => {
         <div className="Tasks-input-task-form-container">
           <InputForm
             placeholderLabel="Add a task"
-            actionType="ADD_TASK"
             variant="outlined"
             submitHandler={handleAddTask}
           />

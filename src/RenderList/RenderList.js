@@ -1,12 +1,12 @@
 import React from "react";
 import Tasks from "../Tasks/Tasks";
-import useNavSidebarListReducer from "../NavSidebar/NavSidebar.lists.reducer";
+import useListsReducer from "../Lists/Lists.reducer";
 import TasksReducer from "../Tasks/Tasks.reducer";
 
 const RenderList = (props) => {
   const listID = props.listID;
   let title = "List";
-  const [lists] = useNavSidebarListReducer();
+  const [lists] = useListsReducer();
   const [tasksList, dispatch] = TasksReducer();
 
   //retrieve the name of List.

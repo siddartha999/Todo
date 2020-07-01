@@ -1,17 +1,17 @@
 /**
- * Reducer for creating and removing tasks:
+ * Reducer for creating and removing lists:
  *
  * Lists will be stored in the following format:
- * [{id: "s1ahd2gha1", taskName: "Groceries"}, {id: "12ag546", taskName: "Sport items"}]
+ * [{id: "s1ahd2gha1", listName: "Groceries"}, {id: "12ag546", listName: "Sport items"}]
  *
- * sessionStorage is used to store and retrieved the tasks.
+ * sessionStorage is used to store and retrieved the lists.
  */
 import { useReducer, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 const SESSION_STORAGE_KEY = "lists";
 
-const useNavSidebarListReducer = (initialValue = []) => {
+const useListsReducer = (initialValue = []) => {
   const [state, dispatch] = useReducer(reducer, initialValue, () => {
     let initValue = [];
     try {
@@ -35,10 +35,10 @@ const reducer = (state, action) => {
     case "ADD_LIST_ITEM":
       return [...state, { id: uuidv4(), listName: action.inputValue }];
     case "REMOVE_LIST_ITEM":
-      return state.filter((task) => task.id !== action.id);
+      return state.filter((listItem) => listItem.id !== action.id);
     default:
       return state;
   }
 };
 
-export default useNavSidebarListReducer;
+export default useListsReducer;

@@ -19,6 +19,20 @@
   transition: width 300ms ease-in;
 }
 
+.Tasks-side-content.tablet-or-mobile-mode {
+  position: absolute;
+  right: 0;
+  z-index: 100;
+}
+
+.Tasks-side-content.mobile-mode {
+  width: 100%;
+}
+
+.Tasks-side-content.tablet-mode {
+  width: 50%;
+}
+
 .Tasks-side-content.no-width {
   width: 0;
 }

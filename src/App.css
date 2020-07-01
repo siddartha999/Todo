@@ -2,6 +2,7 @@
   text-align: center;
   height: 90vh;
   display: flex;
+  position: relative;
 }
 
 .App-sidebar-wrapper {

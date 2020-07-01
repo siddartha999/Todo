@@ -15,6 +15,7 @@ import TaskDetails from "../TaskDetails/TaskDetails";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import useToggle from "../ReusableHooks/useToggle";
+import { isMobile, isTablet } from "react-device-detect";
 
 const Tasks = (props) => {
   const title = props.title || "Tasks";
@@ -185,7 +186,9 @@ const Tasks = (props) => {
       <div
         className={`Tasks-side-content ${
           !displayTaskDetails ? "no-width" : null
-        }`}
+        } ${isMobile || isTablet ? "tablet-or-mobile-mode" : null}
+        ${isMobile && "mobile-mode"}
+        ${isTablet && "tablet-mode"}`}
       >
         {displayTaskDetails && generateTasksDetailsSidebarJSX()}
       </div>

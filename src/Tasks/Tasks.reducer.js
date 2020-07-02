@@ -139,6 +139,14 @@ const reducer = (state, action) => {
     case "DELETE_TASKS_OF_A_LIST": //Deletes the tasks pertaining to the selected list.
       return state.filter((task) => task.listID !== action.listID);
 
+    case "UPDATE_TASK_NOTE": //Updates the note of a  task.
+      return state.map((task) => {
+        if (task.id === action.taskID) {
+          task.note = action.inputValue.trim();
+        }
+        return task;
+      });
+
     default:
       return state;
   }

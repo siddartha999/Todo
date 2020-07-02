@@ -9,6 +9,7 @@ import "./InputForm.css";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import AddSharpIcon from "@material-ui/icons/AddSharp";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,10 +22,14 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiInputBase-root.MuiFilledInput-root.MuiFilledInput-underline.MuiInputBase-formControl": {
       backgroundColor: "rgb(244, 244, 244)",
     },
+    "& textarea.MuiInputBase-input.MuiInput-input.MuiInputBase-inputMultiline.MuiInput-inputMultiline": {
+      height: "",
+    },
   },
   addIcon: {
     width: "2rem",
     cursor: "pointer",
+    paddingBottom: "0.25rem",
   },
 }));
 
@@ -36,6 +41,7 @@ const InputForm = forwardRef((props, ref) => {
   const displayAddIcon = props.displayAddIcon;
   const additionalInfo = props.additionalInfo;
   const isActive = props.active;
+  const isMultiline = props.multiline;
 
   useEffect(() => {
     //Initialized the input value here because the value is persisted in-between the re-renders
@@ -75,6 +81,23 @@ const InputForm = forwardRef((props, ref) => {
     }
   };
 
+  const generateSubmitButtonJSX = () => {
+    return (
+      <div
+        className={`InputForm-multiline-submit-button-wrapper ${props.callerComponent}`}
+      >
+        <Button
+          variant="contained"
+          color="primary"
+          size={props.submitButtonSize || "small"}
+          onClick={handleSubmit}
+        >
+          Submit
+        </Button>
+      </div>
+    );
+  };
+
   return (
     <form
       className={classes.root}
@@ -96,7 +119,10 @@ const InputForm = forwardRef((props, ref) => {
         value={inputValue || ""}
         onChange={handleChange}
         inputRef={ref}
+        multiline={isMultiline}
       />
+
+      {isMultiline && generateSubmitButtonJSX()}
     </form>
   );
 });

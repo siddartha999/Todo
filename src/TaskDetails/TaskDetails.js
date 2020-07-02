@@ -21,9 +21,6 @@ const useStyles = makeStyles((theme) => ({
   contentSteps: {
     width: "90%",
     paddingBottom: "1rem",
-    minHeight: "7rem",
-    display: "flex",
-    flexWrap: "wrap",
   },
   footer: {
     width: "90%",
@@ -34,6 +31,12 @@ const useStyles = makeStyles((theme) => ({
   exitIcon: {
     cursor: "pointer",
   },
+  note: {
+    width: "90%",
+    height: "100%",
+    paddingLeft: "0.5rem",
+    paddingBottom: "0.5rem",
+  },
 }));
 
 const TaskDetails = (props) => {
@@ -42,6 +45,7 @@ const TaskDetails = (props) => {
   const taskID = props.details.id;
   const steps = props.details.steps || [];
   const dispatch = props.dispatch;
+  const taskNote = props.details.note;
 
   const handleExitIconClicked = () => {
     props.closeTaskDetailsSection();
@@ -94,6 +98,7 @@ const TaskDetails = (props) => {
 
   /**
    * Handler to update the name of the task.
+   * @param {*} inputValue - the user-entered value passed by the InputForm component.
    */
   const handleUpdateTaskName = (inputValue) => {
     dispatch({
@@ -105,6 +110,7 @@ const TaskDetails = (props) => {
 
   /**
    * Handler to update the name of a step.
+   * @param {*} inputValue - the user-entered value passed by the InputForm component.
    */
   const handleUpdateStep = (inputValue, additionalInfo) => {
     dispatch({
@@ -117,10 +123,23 @@ const TaskDetails = (props) => {
 
   /**
    * Handler to add a step to the task.
+   * @param {*} inputValue - the user-entered value passed by the InputForm component.
    */
   const handleAddStep = (inputValue) => {
     dispatch({
       type: "ADD_STEP",
+      inputValue: inputValue,
+      taskID: taskID,
+    });
+  };
+
+  /**
+   * Handler to update the note of task-in-action.
+   * @param {*} inputValue - the user-entered value passed by the InputForm component.
+   */
+  const handleUpdateNote = (inputValue) => {
+    dispatch({
+      type: "UPDATE_TASK_NOTE",
       inputValue: inputValue,
       taskID: taskID,
     });
@@ -143,56 +162,71 @@ const TaskDetails = (props) => {
       </div>
 
       <div className="TaskDetails-content-section">
-        <Card className={classes.contentSteps}>
-          <div className="TaskDetails-content-steps-container">
-            {steps.map((stepItem) => (
-              <div
-                className="TaskDetails-content-step-container"
-                key={stepItem.id}
-              >
-                <div className="TaskDetails-toggle-completed-icon-container">
-                  {stepItem.isComplete ? (
-                    <CheckCircleOutlineIcon
-                      onClick={handleToggleStepCompletion}
-                      value={stepItem.id}
-                    />
-                  ) : (
-                    <RadioButtonUncheckedIcon
-                      onClick={handleToggleStepCompletion}
-                      value={stepItem.id}
-                    />
-                  )}
-                </div>
-
-                <div className="TaskDetails-content-step-input-container">
-                  <InputForm
-                    variant="standard"
-                    initialValue={stepItem.step}
-                    submitHandler={handleUpdateStep}
-                    additionalInfo={{ stepID: stepItem.id }}
-                  />
-                </div>
+        <div className="TaskDetails-content-steps-card-container">
+          <Card className={classes.contentSteps}>
+            <div className="TaskDetails-content-steps-container">
+              {steps.map((stepItem) => (
                 <div
-                  className="TaskDetails-content-step-remove-icon-container"
-                  title="Delete step"
+                  className="TaskDetails-content-step-container"
+                  key={stepItem.id}
                 >
-                  <CloseIcon
-                    onClick={handleDeleteStepClicked}
-                    value={stepItem.id}
-                  />
+                  <div className="TaskDetails-toggle-completed-icon-container">
+                    {stepItem.isComplete ? (
+                      <CheckCircleOutlineIcon
+                        onClick={handleToggleStepCompletion}
+                        value={stepItem.id}
+                      />
+                    ) : (
+                      <RadioButtonUncheckedIcon
+                        onClick={handleToggleStepCompletion}
+                        value={stepItem.id}
+                      />
+                    )}
+                  </div>
+
+                  <div className="TaskDetails-content-step-input-container">
+                    <InputForm
+                      variant="standard"
+                      initialValue={stepItem.step}
+                      submitHandler={handleUpdateStep}
+                      additionalInfo={{ stepID: stepItem.id }}
+                    />
+                  </div>
+                  <div
+                    className="TaskDetails-content-step-remove-icon-container"
+                    title="Delete step"
+                  >
+                    <CloseIcon
+                      onClick={handleDeleteStepClicked}
+                      value={stepItem.id}
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-          <div className="TaskDetails-content-add-step-container">
+              ))}
+            </div>
+            <div className="TaskDetails-content-add-step-container">
+              <InputForm
+                variant="standard"
+                placeholderLabel="Add step"
+                displayAddIcon
+                submitHandler={handleAddStep}
+              />
+            </div>
+          </Card>
+        </div>
+
+        <div className="TaskDetails-content-note-container">
+          <Card className={classes.note}>
             <InputForm
+              multiline
               variant="standard"
-              placeholderLabel="Add step"
-              displayAddIcon
-              submitHandler={handleAddStep}
+              placeholderLabel="Note"
+              callerComponent="TaskDetails-content-note"
+              initialValue={taskNote}
+              submitHandler={handleUpdateNote}
             />
-          </div>
-        </Card>
+          </Card>
+        </div>
       </div>
 
       <div className="TaskDetails-footer-actions-section">

@@ -34,7 +34,7 @@ const reducer = (state, action) => {
   switch (action.type) {
     case "ADD_LIST_ITEM":
       return [...state, { id: uuidv4(), listTitle: action.inputValue }];
-    case "REMOVE_LIST_ITEM":
+    case "DELETE_LIST_ITEM": //Delete the selected list.
       return state.filter((listItem) => listItem.id !== action.id);
     case "UPDATE_LIST_TITLE": //Update the title of list in-action.
       return state.map((listItem) => {

@@ -136,6 +136,9 @@ const reducer = (state, action) => {
         return task;
       });
 
+    case "DELETE_TASKS_OF_A_LIST": //Deletes the tasks pertaining to the selected list.
+      return state.filter((task) => task.listID !== action.listID);
+
     default:
       return state;
   }

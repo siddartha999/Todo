@@ -9,6 +9,8 @@ import CardContent from "@material-ui/core/CardContent";
 import InputForm from "../InputForm/InputForm";
 import useToggle from "../ReusableHooks/useToggle";
 import HistoryIcon from "@material-ui/icons/History";
+import DeleteSharpIcon from "@material-ui/icons/DeleteSharp";
+import Emitter from "../services/Emitter";
 
 const useStyles = makeStyles({
   root: {
@@ -29,13 +31,12 @@ const useStyles = makeStyles({
     wordBreak: "break-all",
   },
   listDetailTitle: {
-    width: "75%",
     fontWeight: "bold",
     fontSize: "1.25rem",
     paddingBottom: "0.25rem",
   },
   content: {
-    height: "calc(100% - 3rem)",
+    minHeight: "10rem",
     padding: "0 !important",
     textDecoration: "none",
   },
@@ -45,12 +46,13 @@ const ListCard = (props) => {
   const classes = useStyles();
   const list = props.listItem;
   const [isEditMode, toggleIsEditMode] = useToggle(false);
-  const dispatch = props.dispatch;
+  const listsDispatch = props.listsDispatch;
+  const tasksDispatch = props.tasksDispatch;
 
   /**
    * Handler to toggle the list-title edit.
    */
-  const handletoggleEditMode = () => {
+  const handleToggleEditMode = () => {
     toggleIsEditMode();
   };
 
@@ -58,13 +60,31 @@ const ListCard = (props) => {
    * Handler to modify the list-title.
    */
   const handleModifyListTitle = (inputValue) => {
-    dispatch({
+    listsDispatch({
       type: "UPDATE_LIST_TITLE",
       inputValue: inputValue,
       id: list.id,
     });
     //Toggle to Normal mode post submit.
     toggleIsEditMode();
+  };
+
+  /**
+   * Handler to confirm the deletion of a list.
+   */
+  const handleDeleteListClicked = () => {
+    Emitter.emit("DISPLAY_CONFIRMATION_DIALOG", {
+      content: `"${list.title}" will be deleted permanently along with its tasks.`,
+      handler: handleDeleteList,
+    });
+  };
+
+  /**
+   * Handler to delete the list, and the corresponding tasks.
+   */
+  const handleDeleteList = () => {
+    listsDispatch({ type: "DELETE_LIST_ITEM", id: list.id });
+    tasksDispatch({ type: "DELETE_TASKS_OF_A_LIST", listID: list.id });
   };
 
   const generateEditModeHeaderJSX = () => {
@@ -79,8 +99,8 @@ const ListCard = (props) => {
           />
         </div>
         <div
-          className="ListCard-list-item-toggle-edit-icon-wrapper"
-          onClick={handletoggleEditMode}
+          className="ListCard-header-toggle-edit-icon-wrapper"
+          onClick={handleToggleEditMode}
           title="Undo"
         >
           <HistoryIcon />
@@ -92,17 +112,28 @@ const ListCard = (props) => {
   const generateDisplayModeHeaderJSX = () => {
     return (
       <>
-        <Typography
-          className={`${classes.listDetail} ${classes.listDetailTitle}`}
-        >
-          {list.title}
-        </Typography>
+        <div className="ListCard-header-title-container">
+          <Typography
+            className={`${classes.listDetail} ${classes.listDetailTitle}`}
+          >
+            {list.title}
+          </Typography>
+        </div>
+
         <div
-          className="ListCard-list-item-toggle-edit-icon-wrapper"
-          onClick={handletoggleEditMode}
+          className="ListCard-header-toggle-edit-icon-wrapper"
+          onClick={handleToggleEditMode}
           title="Edit"
         >
           <EditIcon />
+        </div>
+
+        <div
+          className="ListCard-header-delete-list-icon-wrapper"
+          onClick={handleDeleteListClicked}
+          title="Edit"
+        >
+          <DeleteSharpIcon />
         </div>
       </>
     );

@@ -70,7 +70,11 @@ const Lists = () => {
     <div className="Lists-list-items-container">
       {listDetails.map((list) => (
         <div className="Lists-list-item-container" key={list.id}>
-          <ListCard listItem={list} dispatch={listsDispatch} />
+          <ListCard
+            listItem={list}
+            listsDispatch={listsDispatch}
+            tasksDispatch={tasksDispatch}
+          />
         </div>
       ))}
     </div>

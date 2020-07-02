@@ -32,5 +32,6 @@
 .Lists-list-item-container {
   width: 12rem;
   min-height: 15rem;
+  max-height: 25rem;
   padding: 1rem;
 }

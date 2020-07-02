@@ -1,41 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./Lists.css";
 import useListsReducer from "./Lists.reducer";
-import Card from "@material-ui/core/Card";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import TasksReducer from "../Tasks/Tasks.reducer";
 import InputForm from "../InputForm/InputForm";
-import { NavLink } from "react-router-dom";
-
-const useStyles = makeStyles({
-  root: {
-    width: "100%",
-    height: "100%",
-    border: "1px solid darkolivegreen",
-    display: "flex",
-    flexWrap: "wrap",
-    alignContent: "center",
-    textDecoration: "none",
-  },
-  listDetail: {
-    width: "100%",
-    fontFamily: "serif",
-    height: "2rem",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    wordBreak: "break-all",
-  },
-  listDetailTitle: {
-    fontWeight: "bold",
-    fontSize: "1.25rem",
-    paddingBottom: "1rem",
-  },
-});
+import ListCard from "../ListCard/ListCard";
 
 const Lists = () => {
-  const classes = useStyles();
   const [lists, listsDispatch] = useListsReducer([]);
   const [tasksList, tasksDispatch] = TasksReducer();
   const [listDetails, setListDetails] = useState([]);
@@ -45,7 +15,7 @@ const Lists = () => {
     const details = [];
     for (let list of lists) {
       const listID = list.id;
-      const listName = list.listName;
+      const listTitle = list.listTitle;
       let totalTasks = 0;
       let totalSteps = 0;
       let completedTasks = 0;
@@ -71,7 +41,7 @@ const Lists = () => {
       //Store the retrieved info.
       details.push({
         id: listID,
-        name: listName,
+        title: listTitle,
         tasks: totalTasks,
         completedTasks: completedTasks,
         steps: totalSteps,
@@ -100,27 +70,7 @@ const Lists = () => {
     <div className="Lists-list-items-container">
       {listDetails.map((list) => (
         <div className="Lists-list-item-container" key={list.id}>
-          <Card
-            className={classes.root}
-            component={NavLink}
-            to={`/tasks/${list.id}`}
-            exact
-          >
-            <Typography
-              className={`${classes.listDetail} ${classes.listDetailTitle}`}
-            >
-              {list.name}
-            </Typography>
-            <Typography className={classes.listDetail}>
-              {list.completedTasks} completed of {list.tasks} tasks
-            </Typography>
-            <Typography className={classes.listDetail}>
-              {list.completedSteps} completed of {list.steps} steps
-            </Typography>
-            <Typography className={classes.listDetail}>
-              {list.starred} tasks starred
-            </Typography>
-          </Card>
+          <ListCard listItem={list} dispatch={listsDispatch} />
         </div>
       ))}
     </div>

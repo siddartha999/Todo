@@ -35,6 +35,7 @@ const InputForm = forwardRef((props, ref) => {
   const placeholderLabel = props.placeholderLabel || "";
   const displayAddIcon = props.displayAddIcon;
   const additionalInfo = props.additionalInfo;
+  const isActive = props.active;
 
   useEffect(() => {
     //Initialized the input value here because the value is persisted in-between the re-renders
@@ -51,6 +52,13 @@ const InputForm = forwardRef((props, ref) => {
   const handleChange = (event) => {
     setInputValue(event.target.value);
   };
+
+  useEffect(() => {
+    //If the inputForm is to be focussed during the mounting stage.
+    if (isActive && ref) {
+      ref.current.focus();
+    }
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();

@@ -12,7 +12,7 @@ const RenderList = (props) => {
   //retrieve the name of List.
   for (let listItem of lists) {
     if (listItem.id === listID) {
-      title = listItem.listName;
+      title = listItem.listTitle;
       break;
     }
   }

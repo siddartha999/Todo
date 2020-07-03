@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./NavSidebar.css";
 import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
@@ -13,7 +12,7 @@ import WbSunnyIcon from "@material-ui/icons/WbSunny";
 import StarsIcon from "@material-ui/icons/Stars";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import { NavLink } from "react-router-dom";
-import useStyles from "./NavSidebar.style";
+import useStyles from "./SideNavbar.style";
 import Emitter from "../services/Emitter";
 import ListSharpIcon from "@material-ui/icons/ListSharp";
 import GroupWorkIcon from "@material-ui/icons/GroupWork";
@@ -29,16 +28,27 @@ const NAV_BAR_BOTTOM_LEVEL_ITEMS = [
   { name: "Lists", navLink: "/lists", icon: <ListSharpIcon /> },
 ];
 
-function NavSidebar() {
+function SideNavbar() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
-  const handleToggleDrawer = () => {
+  /**
+   * Toggles the expansion of Side nav-bar.
+   */
+  const handleToggleExpandSideNavBar = () => {
     setOpen(!open);
   };
 
-  Emitter.on("CLOSE_NAV_SIDE_BAR", () => {
+  /**
+   *Collapses the Side nav-bar.
+   */
+  const collapseSideNavBar = () => {
     setOpen(false);
+  };
+
+  //Gets triggered based on the event emitted outside the Side Nav-bar.
+  Emitter.on("CLOSE_NAV_SIDE_BAR", () => {
+    collapseSideNavBar();
   });
 
   return (
@@ -60,7 +70,7 @@ function NavSidebar() {
           <IconButton
             color="inherit"
             aria-label="toggle drawer"
-            onClick={handleToggleDrawer}
+            onClick={handleToggleExpandSideNavBar}
           >
             <MenuIcon />
           </IconButton>
@@ -75,6 +85,7 @@ function NavSidebar() {
               to={item.navLink}
               exact
               activeClassName={classes["active-link"]}
+              onClick={collapseSideNavBar}
             >
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.name} />
@@ -90,6 +101,7 @@ function NavSidebar() {
             to={item.navLink}
             exact
             activeClassName={classes["active-link"]}
+            onClick={collapseSideNavBar}
           >
             <ListItemIcon>{item.icon}</ListItemIcon>
             <ListItemText primary={item.name} />
@@ -103,4 +115,4 @@ function NavSidebar() {
   );
 }
 
-export default NavSidebar;
+export default SideNavbar;

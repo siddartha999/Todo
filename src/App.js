@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import NavSidebar from "./NavSidebar/NavSidebar";
+import SideNavbar from "./SideNavbar/SideNavbar";
 import TopAppBar from "./TopAppBar/TopAppBar";
 import { Route, Switch } from "react-router-dom";
 import RenderList from "./RenderList/RenderList";
@@ -19,7 +19,7 @@ function App() {
     <div className="App">
       <TopAppBar />
       <div className="App-sidebar-wrapper">
-        <NavSidebar />
+        <SideNavbar />
       </div>
       <div className="App-center-content-wrapper" onClick={handleClick}>
         <Switch>

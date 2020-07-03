@@ -1,4 +1,4 @@
-//Moving makeStyles() of NavSidebar to this file, as it makes the business logic much more clear and easily visible.
+//Moving makeStyles() of SideNavbar to this file, as it makes the business logic much more clear and easily visible.
 import { makeStyles } from "@material-ui/core/styles";
 
 const drawerWidth = 240;

@@ -7,6 +7,7 @@ import RenderList from "./RenderList/RenderList";
 import Emitter from "./services/Emitter";
 import Starred from "./Starred/Starred";
 import Lists from "./Lists/Lists";
+import Groups from "./Groups/Groups";
 import RetrieveOrphanTaskList from "./RetrieveOrphanTaskList/RetrieveOrphanTaskList";
 import ConfirmationDialog from "./ConfirmationDialog/ConfirmationDialog";
 
@@ -38,6 +39,7 @@ function App() {
           />
           <Route exact path="/starred" render={() => <Starred />} />
           <Route exact path="/lists" render={() => <Lists />} />
+          <Route exact path="/groups" render={() => <Groups />} />
         </Switch>
       </div>
       <ConfirmationDialog />

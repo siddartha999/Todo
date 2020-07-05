@@ -4,7 +4,7 @@
  * Lists will be stored in the following format:
  * [{id: "s1ahd2gha1", listTitle: "Groceries"}, {id: "12ag546", listTitle: "Sport items"}]
  *
- * sessionStorage is used to store and retrieved the lists.
+ * sessionStorage is used to store and retrieve the lists.
  */
 import { useReducer, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -33,7 +33,10 @@ const useListsReducer = (initialValue = []) => {
 const reducer = (state, action) => {
   switch (action.type) {
     case "ADD_LIST_ITEM":
-      return [...state, { id: uuidv4(), listTitle: action.inputValue }];
+      return [
+        ...state,
+        { id: uuidv4(), listTitle: action.inputValue, groupID: null },
+      ];
     case "DELETE_LIST_ITEM": //Delete the selected list.
       return state.filter((listItem) => listItem.id !== action.id);
     case "UPDATE_LIST_TITLE": //Update the title of list in-action.
@@ -42,6 +45,15 @@ const reducer = (state, action) => {
           //Update the list title.
           listItem.listTitle = action.inputValue;
         }
+        return listItem;
+      });
+    case "ADD_LISTS_TO_GROUP": //Add the selected lists to the group in action.
+      return state.map((listItem) => {
+        if (action.selectedListIds.has(listItem.id)) {
+          //If the current list is in the selected list ids, add it to the group.
+          listItem.groupID = action.groupID;
+        }
+
         return listItem;
       });
 

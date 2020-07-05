@@ -1,0 +1,31 @@
+.Groups {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: baseline;
+}
+
+.Groups-input-form-container {
+  width: 95%;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  padding-bottom: 1rem;
+}
+
+.Groups-group-items-container {
+  width: 100%;
+  height: calc(100% - 6rem);
+  overflow: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: baseline;
+}
+
+.Groups-group-item-container {
+  width: 15rem;
+  padding: 1rem;
+}

@@ -1,0 +1,28 @@
+.GroupCard-header-actions-container {
+  display: flex;
+  padding-left: 0.5rem;
+}
+
+.GroupCard-header-undo-icon-wrapper {
+  padding-top: 0.25rem;
+}
+
+.GroupCard-header-delete-group-icon-wrapper {
+  padding-left: 0.25rem;
+}
+
+.GroupCard-add-lists-container {
+  width: 100%;
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+}
+
+.GroupCard-add-lists-type-ahead-container {
+  width: 75%;
+  padding-left: 0.25rem;
+}
+
+.GroupCard-add-lists-button-container {
+  padding: 0 0.25rem;
+}

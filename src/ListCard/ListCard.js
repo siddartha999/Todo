@@ -131,7 +131,7 @@ const ListCard = (props) => {
         <div
           className="ListCard-header-delete-list-icon-wrapper"
           onClick={handleDeleteListClicked}
-          title="Edit"
+          title="Delete"
         >
           <DeleteSharpIcon />
         </div>

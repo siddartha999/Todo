@@ -91,10 +91,10 @@ const GroupCard = (props) => {
   const [isEditMode, toggleIsEditMode] = useToggle(false);
   const groupsDispatch = props.groupsDispatch;
   const listsDispatch = props.listsDispatch;
+  const tasksDispatch = props.tasksDispatch;
   const group = props.groupItem;
   const lists = props.lists;
   const selectedLists = useRef([]);
-  const clearList = useRef();
 
   /**
    * Filtering out the list options.
@@ -113,10 +113,24 @@ const GroupCard = (props) => {
   };
 
   /**
-   * Handler to delete the group.
+   * Handler to delete the group, along with its contained lists and tasks.
    */
   const handleDeleteGroup = () => {
     groupsDispatch({ type: "DELETE_GROUP", id: group.id });
+    //Collect the ID's of lists to be deleted.
+    const deletedListIds = new Set();
+    for (let list of lists) {
+      if (list.groupID === group.id) {
+        //Add the to-be deleted list id's to the set.
+        deletedListIds.add(list.id);
+      }
+    }
+    listsDispatch({ type: "DELETE_LISTS_OF_A_GROUP", groupID: group.id });
+    //Delete the tasks pertaining to the lists in the set.
+    tasksDispatch({
+      type: "DELETE_TASKS_OF_MULTIPLE_LISTS",
+      deletedListIds: deletedListIds,
+    });
   };
 
   /**
@@ -125,7 +139,7 @@ const GroupCard = (props) => {
   const handleDeleteGroupClicked = (event) => {
     event.stopPropagation(); //To prevent the expander from expanding.
     Emitter.emit("DISPLAY_CONFIRMATION_DIALOG", {
-      content: ` will be deleted permanently along with its tasks.`,
+      content: ` "${group.groupTitle}" will be deleted permanently along with its lists.`,
       handler: handleDeleteGroup,
     });
   };
@@ -172,12 +186,16 @@ const GroupCard = (props) => {
     selectedLists.current = currentSelectedListArray;
   };
 
-  useEffect(() => {
-    //Hold the reference of autocomplete field clear button.
-    clearList.current = document.querySelector(
-      ".MuiAutocomplete-clearIndicatorDirty"
-    );
-  }, []);
+  /**
+   * Handler to remove the list from the group.
+   */
+  const handleRemoveListClicked = (event) => {
+    const listID = event.target.parentElement.parentElement.getAttribute("id");
+    listsDispatch({
+      type: "REMOVE_LIST_FROM_GROUP",
+      listID: listID,
+    });
+  };
 
   /**
    * Renders the header for the normal-mode.
@@ -293,7 +311,8 @@ const GroupCard = (props) => {
                       className={classes.chip}
                       key={option.id}
                       label={option.listTitle}
-                      onDelete={() => {}}
+                      id={option.id}
+                      onDelete={handleRemoveListClicked}
                     />
                   );
                 })

@@ -37,8 +37,10 @@ const reducer = (state, action) => {
         ...state,
         { id: uuidv4(), listTitle: action.inputValue, groupID: null },
       ];
+
     case "DELETE_LIST_ITEM": //Delete the selected list.
       return state.filter((listItem) => listItem.id !== action.id);
+
     case "UPDATE_LIST_TITLE": //Update the title of list in-action.
       return state.map((listItem) => {
         if (listItem.id === action.id) {
@@ -47,6 +49,7 @@ const reducer = (state, action) => {
         }
         return listItem;
       });
+
     case "ADD_LISTS_TO_GROUP": //Add the selected lists to the group in action.
       return state.map((listItem) => {
         if (action.selectedListIds.has(listItem.id)) {
@@ -56,6 +59,18 @@ const reducer = (state, action) => {
 
         return listItem;
       });
+
+    case "REMOVE_LIST_FROM_GROUP": //Remove the list from a group.
+      return state.map((listItem) => {
+        if (listItem.id === action.listID) {
+          //Removing the selected list from a group.
+          listItem.groupID = null;
+        }
+        return listItem;
+      });
+
+    case "DELETE_LISTS_OF_A_GROUP": //Delete the lists of a group.
+      return state.filter((listItem) => listItem.groupID !== action.groupID);
 
     default:
       return state;

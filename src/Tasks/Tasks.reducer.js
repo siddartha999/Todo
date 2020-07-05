@@ -139,6 +139,9 @@ const reducer = (state, action) => {
     case "DELETE_TASKS_OF_A_LIST": //Deletes the tasks pertaining to the selected list.
       return state.filter((task) => task.listID !== action.listID);
 
+    case "DELETE_TASKS_OF_MULTIPLE_LISTS": //Deletes the tasks of multiple lists i.e, in the case multiple lists are deleted.
+      return state.filter((task) => !action.deletedListIds.has(task.listID));
+
     case "UPDATE_TASK_NOTE": //Updates the note of a  task.
       return state.map((task) => {
         if (task.id === action.taskID) {

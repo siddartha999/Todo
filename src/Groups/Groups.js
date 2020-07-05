@@ -1,13 +1,15 @@
 import React from "react";
 import "./Groups.css";
 import InputForm from "../InputForm/InputForm";
-import useGroupsReducer from "./Groups.reducer";
-import useListsReducer from "../Lists/Lists.reducer";
+import GroupsReducer from "./Groups.reducer";
+import ListsReducer from "../Lists/Lists.reducer";
+import TasksReducer from "../Tasks/Tasks.reducer";
 import GroupCard from "../GroupCard/GroupCard";
 
 const Groups = () => {
-  const [groups, groupsDispatch] = useGroupsReducer([]);
-  const [lists, listsDispatch] = useListsReducer();
+  const [groups, groupsDispatch] = GroupsReducer([]);
+  const [lists, listsDispatch] = ListsReducer();
+  const [tasks, tasksDispatch] = TasksReducer();
 
   /**
    * Handler to add a group.
@@ -29,6 +31,7 @@ const Groups = () => {
           <GroupCard
             groupsDispatch={groupsDispatch}
             listsDispatch={listsDispatch}
+            tasksDispatch={tasksDispatch}
             groupItem={groupItem}
             lists={lists}
           />

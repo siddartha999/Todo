@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import "./GroupCard.css";
 import { makeStyles } from "@material-ui/core/styles";
 import Accordion from "@material-ui/core/Accordion";
@@ -17,6 +17,7 @@ import useToggle from "../ReusableHooks/useToggle";
 import InputForm from "../InputForm/InputForm";
 import Emitter from "../services/Emitter";
 import Button from "@material-ui/core/Button";
+import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,6 +80,9 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: "wrap",
     justifyContent: "space-evenly",
     width: "100%",
+    "& a.MuiChip-deletable": {
+      cursor: "pointer",
+    },
   },
   chip: {
     maxWidth: "100%",
@@ -95,14 +99,6 @@ const GroupCard = (props) => {
   const group = props.groupItem;
   const lists = props.lists;
   const selectedLists = useRef([]);
-
-  /**
-   * Filtering out the list options.
-   * The list should not be displayed in the drop-down if it is already added to the group.
-   */
-  const filterOptions = (options) => {
-    return options.filter((listItem) => listItem.groupID !== group.id);
-  };
 
   /**
    * Handler to toggle the group-title edit.
@@ -190,6 +186,8 @@ const GroupCard = (props) => {
    * Handler to remove the list from the group.
    */
   const handleRemoveListClicked = (event) => {
+    event.stopPropagation();
+    event.preventDefault(); //To prevent the application from navigating to tasks page.
     const listID = event.target.parentElement.parentElement.getAttribute("id");
     listsDispatch({
       type: "REMOVE_LIST_FROM_GROUP",
@@ -271,10 +269,11 @@ const GroupCard = (props) => {
           <div className="GroupCard-add-lists-type-ahead-container">
             <Autocomplete
               multiple
-              id="tags-outlined"
+              id="size-small-outlined-multi"
+              size="small"
               options={lists}
               getOptionLabel={(option) => option.listTitle}
-              filterOptions={filterOptions}
+              filterSelectedOptions
               onChange={handleListSelectionChanged}
               clearOnEscape
               renderInput={(params) => (
@@ -313,6 +312,9 @@ const GroupCard = (props) => {
                       label={option.listTitle}
                       id={option.id}
                       onDelete={handleRemoveListClicked}
+                      component={NavLink}
+                      to={`/tasks/${option.id}`}
+                      exact
                     />
                   );
                 })

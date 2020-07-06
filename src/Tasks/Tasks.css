@@ -44,12 +44,25 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: nowrap;
 }
 
 .Tasks-title-container {
-  width: 20%;
+  width: 70%;
   text-align: left;
   padding-left: 0.25rem;
+  font-size: 1.5rem;
+  font-family: sans-serif;
+}
+
+.Tasks-title-container.mobile-mode {
+  width: 35%;
+}
+
+.Tasks-title-container > p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .Tasks-header-toggle-display-completed-tasks-container {

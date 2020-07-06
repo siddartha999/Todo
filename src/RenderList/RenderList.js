@@ -2,10 +2,11 @@ import React from "react";
 import Tasks from "../Tasks/Tasks";
 import useListsReducer from "../Lists/Lists.reducer";
 import TasksReducer from "../Tasks/Tasks.reducer";
+import { Redirect } from "react-router-dom";
 
 const RenderList = (props) => {
   const listID = props.listID;
-  let title = "List";
+  let title;
   const [lists] = useListsReducer();
   const [tasksList, dispatch] = TasksReducer();
 
@@ -15,6 +16,11 @@ const RenderList = (props) => {
       title = listItem.listTitle;
       break;
     }
+  }
+
+  //Re-directing to tasks page if the specified list isn't available.
+  if (!title) {
+    return <Redirect to="/tasks" />;
   }
 
   let currentListTasks = [];

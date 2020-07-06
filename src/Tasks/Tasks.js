@@ -147,7 +147,7 @@ const Tasks = (props) => {
     <div className="Tasks">
       <div className="Tasks-main-content">
         <div className="Tasks-main-content-header">
-          <div className="Tasks-title-container">
+          <div className={`Tasks-title-container ${isMobile && "mobile-mode"}`}>
             <p>{title}</p>
           </div>
           <div className="Tasks-header-toggle-display-completed-tasks-container">

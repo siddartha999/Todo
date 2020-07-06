@@ -1,6 +1,6 @@
 .ListCard-list-item-title-header {
   width: 100%;
-  min-height: 3rem;
+  height: 3rem;
   border-bottom: 1px solid;
   display: flex;
   align-items: center;
@@ -17,7 +17,15 @@
 }
 
 .ListCard-header-title-container {
-  width: 75%;
+  width: 70%;
+  overflow: hidden;
+}
+
+.ListCard-header-title-container > p {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-left: 0.25rem;
 }
 
 .ListCard-header-input-wrapper {

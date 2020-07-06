@@ -40,6 +40,10 @@ function App() {
           <Route exact path="/starred" render={() => <Starred />} />
           <Route exact path="/lists" render={() => <Lists />} />
           <Route exact path="/groups" render={() => <Groups />} />
+          <Route
+            exact
+            render={() => <p>The page you're looking for doesn't exist</p>}
+          />
         </Switch>
       </div>
       <ConfirmationDialog />

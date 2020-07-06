@@ -12,7 +12,7 @@ import HistoryIcon from "@material-ui/icons/History";
 import DeleteSharpIcon from "@material-ui/icons/DeleteSharp";
 import Emitter from "../services/Emitter";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     height: "100%",
@@ -30,17 +30,12 @@ const useStyles = makeStyles({
     justifyContent: "center",
     wordBreak: "break-all",
   },
-  listDetailTitle: {
-    fontWeight: "bold",
-    fontSize: "1.25rem",
-    paddingBottom: "0.25rem",
-  },
   content: {
     minHeight: "10rem",
     padding: "0 !important",
     textDecoration: "none",
   },
-});
+}));
 
 const ListCard = (props) => {
   const classes = useStyles();
@@ -113,11 +108,7 @@ const ListCard = (props) => {
     return (
       <>
         <div className="ListCard-header-title-container">
-          <Typography
-            className={`${classes.listDetail} ${classes.listDetailTitle}`}
-          >
-            {list.title}
-          </Typography>
+          <Typography>{list.title}</Typography>
         </div>
 
         <div

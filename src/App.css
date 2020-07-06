@@ -14,7 +14,7 @@
 
 .App-center-content-wrapper {
   width: calc(100% - 57px);
-  padding-left: 1.5rem;
+  padding-left: 0.5rem;
   height: calc(100%);
   position: relative;
   top: 3.5rem;
